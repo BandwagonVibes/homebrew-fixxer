@@ -13,8 +13,8 @@ class Fixxer < Formula
     venv = virtualenv_create(libexec, "python3.12", system_site_packages: false)
     system libexec/"bin/python", "-m", "ensurepip"
     system libexec/"bin/python", "-m", "pip", "install", "-U", "pip"
-    system libexec/"bin/pip", "install", "-r", "requirements.txt"
-    system libexec/"bin/pip", "install", ".", "--no-deps"
+    system libexec/"bin/pip3", "install", "-r", "requirements.txt"
+    system libexec/"bin/pip3", "install", ".", "--no-deps"
     bin.install_symlink libexec/"bin/fixxer"
   end
 
