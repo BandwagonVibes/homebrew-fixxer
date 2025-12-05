@@ -10,7 +10,7 @@ class Fixxer < Formula
   depends_on "python@3.12"
 
   def install
-    venv = virtualenv_create(libexec, "python3.12")
+    venv = virtualenv_create(libexec, "python3.12", system_site_packages: false)
     system libexec/"bin/python", "-m", "ensurepip"
     system libexec/"bin/python", "-m", "pip", "install", "-U", "pip"
     system libexec/"bin/pip", "install", "-r", "requirements.txt"
