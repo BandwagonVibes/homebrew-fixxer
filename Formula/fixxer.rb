@@ -1,6 +1,4 @@
 class Fixxer < Formula
-  include Language::Python::Virtualenv
-
   desc "AI-powered photography workflow automation"
   homepage "https://github.com/BandwagonVibes/fixxer"
   url "https://github.com/BandwagonVibes/fixxer/archive/refs/tags/v1.0.1.tar.gz"
@@ -10,7 +8,8 @@ class Fixxer < Formula
   depends_on "python@3.12"
 
   def install
-    virtualenv_install_with_resources
+    venv = virtualenv_create(libexec, "python3.12")
+    venv.pip_install_and_link buildpath
   end
 
   def caveats
