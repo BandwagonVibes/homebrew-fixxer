@@ -8,27 +8,30 @@ class Fixxer < Formula
   license "MIT"
 
   depends_on "python@3.12"
+  # Add these build dependencies just in case compiling wheels (like opencv/rawpy) gets heavy
+  depends_on "cmake" => :build 
+  depends_on "pkg-config" => :build
 
   def install
-    virtualenv_install_with_resources
-    
-    # Explicitly install dependencies that pyproject.toml declares
-    system libexec/"bin/pip", "install",
-           "textual>=0.47.0",
-           "rich>=13.7.0",
-           "Pillow>=10.0.0",
-           "opencv-python>=4.8.0",
-           "numpy>=1.24.0",
-           "rawpy>=0.19.0",
-           "ImageHash>=4.3.1",
-           "ExifRead>=3.0.0",
-           "requests>=2.31.0",
-           "psutil>=5.9.0"
+    # 1. Create the virtualenv manually in libexec
+    virtualenv_create(libexec, "python3.12")
+
+    # 2. Install dependencies from requirements.txt
+    # We force the venv's pip to install what's in your repo
+    system libexec/"bin/pip", "install", "-v", "-r", "requirements.txt"
+
+    # 3. Install the package itself (fixxer)
+    # We use --no-deps because we just installed them above
+    system libexec/"bin/pip", "install", "-v", ".", "--no-deps"
+
+    # 4. Link the 'fixxer' binary to Homebrew's bin directory so it's in the PATH
+    bin.install_symlink libexec/"bin/fixxer"
   end
 
   def caveats
     <<~EOS
-      FIXXER requires Ollama for AI features:
+      FIXXER requires Ollama for AI features.
+      If you haven't installed it yet:
         brew install ollama
         ollama pull qwen2.5vl:3b
 
