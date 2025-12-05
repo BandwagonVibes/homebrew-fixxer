@@ -10,8 +10,20 @@ class Fixxer < Formula
   depends_on "python@3.12"
 
   def install
-    venv = virtualenv_create(libexec, "python3.12")
-    venv.pip_install_and_link buildpath
+    virtualenv_install_with_resources
+    
+    # Explicitly install dependencies that pyproject.toml declares
+    system libexec/"bin/pip", "install",
+           "textual>=0.47.0",
+           "rich>=13.7.0",
+           "Pillow>=10.0.0",
+           "opencv-python>=4.8.0",
+           "numpy>=1.24.0",
+           "rawpy>=0.19.0",
+           "ImageHash>=4.3.1",
+           "ExifRead>=3.0.0",
+           "requests>=2.31.0",
+           "psutil>=5.9.0"
   end
 
   def caveats
