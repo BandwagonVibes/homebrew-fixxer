@@ -1,4 +1,6 @@
 class Fixxer < Formula
+  include Language::Python::Virtualenv
+
   desc "AI-powered photography workflow automation"
   homepage "https://github.com/BandwagonVibes/fixxer"
   url "https://github.com/BandwagonVibes/fixxer/archive/refs/tags/v1.0.1.tar.gz"
