@@ -4,7 +4,7 @@ class Fixxer < Formula
   desc "AI-powered photography workflow automation"
   homepage "https://github.com/BandwagonVibes/fixxer"
   url "https://github.com/BandwagonVibes/fixxer/archive/refs/tags/v1.1.0.tar.gz"
-  sha256 "192d7c34bd1481de4258c83b7ee34c57b7fe62ee21a51e4965974eb7986f240a"
+  sha256 "5c5fc0d2ccd7966352394721cc791a7fc9b6835a2971a98b01857a3aac2be1f7"
   license "MIT"
 
   depends_on "python@3.12"
